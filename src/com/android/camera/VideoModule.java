@@ -2039,6 +2039,14 @@ public class VideoModule implements CameraModule,
             mParameters.setColorEffect(colorEffect);
         }
 
+        // Antibanding
+        String antibanding = mPreferences.getString(
+                CameraSettings.KEY_ANTIBANDING,
+                mActivity.getString(R.string.pref_camera_antibanding_default));
+        if (Util.isSupported(antibanding, mParameters.getSupportedAntibanding())) {
+            mParameters.setAntibanding(antibanding);
+        }
+
         // Set exposure compensation
         int value = CameraSettings.readExposure(mPreferences);
         int max = mParameters.getMaxExposureCompensation();

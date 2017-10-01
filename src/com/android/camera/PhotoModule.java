@@ -2678,6 +2678,14 @@ public class PhotoModule
                 mActivity.getString(R.string.pref_shutter_speed_default));
         mParameters.set("shutter-speed", shutterSpeed);
 
+        // Antibanding
+        String antibanding = mPreferences.getString(
+                CameraSettings.KEY_ANTIBANDING,
+                mActivity.getString(R.string.pref_camera_antibanding_default));
+        if (Util.isSupported(antibanding, mParameters.getSupportedAntibanding())) {
+            mParameters.setAntibanding(antibanding);
+        }
+
         // Set exposure compensation
         if (!mHDRShotInProgress) {
             int value = CameraSettings.readExposure(mPreferences);
